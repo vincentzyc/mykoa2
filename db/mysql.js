@@ -58,7 +58,8 @@ module.exports = dodb;
 //         return new Promise(function(resolve, reject) {
 //             connection.query(sql, function(err, res) {
 //                 if (err) {
-//                     console.log("eeeeeeeeeeeeeeeeeeeeeeERROr");
+//                     console.error("-----------------------query error-------------------------");
+//                     console.error(err);
 //                     reject("ERROR");
 //                 }
 //                 resolve(res);
