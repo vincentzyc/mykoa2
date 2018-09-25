@@ -1,6 +1,6 @@
 const base = {
     host: "xxx",
-    user: "xxx4",
+    user: "xxx",
     password: "xxx",
     database: "xxx",
 }
