@@ -6,6 +6,7 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const cors = require("koa2-cors");
+const format = require('./middlewares/format');
 
 const index = require('./routes/index')
 const users = require('./routes/users')
@@ -19,7 +20,7 @@ app.use(bodyparser({
 }))
 app.use(json())
 app.use(logger())
-app.use(cors());
+
 app.use(require('koa-static')(__dirname + '/public'))
 
 app.use(views(__dirname + '/views', {
@@ -33,6 +34,10 @@ app.use(async (ctx, next) => {
     const ms = new Date() - start
     console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
+
+app.use(cors());
+//添加格式化处理响应结果的中间件，在添加路由之前调用
+app.use(format);
 
 // routes
 app.use(index.routes(), index.allowedMethods())

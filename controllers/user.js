@@ -4,14 +4,16 @@ module.exports = {
     getUserInfo: async (ctx, next) => {
         let userName = ctx.request.body.name;
         try {
-            let data = await userModel.getuserinfo(userName);
-            ctx.body = data;
+            let res = await userModel.getuserinfo(userName);
+            if (res.length > 0) {
+                ctx.body = [0, res[0]];
+                return;
+            }
+            ctx.body = [111, "用户名不存在"];
         } catch (error) {
             console.error("-------------------------controllers-Error--------------------------");
             console.log(error);
-            ctx.body = {
-                param: "服务器繁忙，请稍后重试"
-            };
+            ctx.body = [500, "服务器繁忙，请稍后重试"];
         }
     }
 };
